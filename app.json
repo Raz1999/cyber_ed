@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FAF9F6"
     },
     "ios": {
       "supportsTablet": true
@@ -24,7 +24,11 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "lang": "he",
+      "dir": "rtl",
+      "backgroundColor": "#FAF9F6",
+      "bundler": "metro"
     },
     "plugins": [
       "expo-font"
