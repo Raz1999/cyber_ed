@@ -1,21 +1,44 @@
 import './global.css';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { I18nManager, View, Text, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { useFonts, Heebo_400Regular, Heebo_700Bold } from '@expo-google-fonts/heebo';
+import AppNavigator from './src/navigation/AppNavigator';
+
+// Force RTL for Hebrew — called unconditionally on every app start
+I18nManager.forceRTL(true);
+I18nManager.allowRTL(true);
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Heebo_400Regular,
+    Heebo_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.loading}>
+        <Text style={styles.loadingText}>טוען...</Text>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  loading: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FAF9F6',
+  },
+  loadingText: {
+    fontSize: 18,
+    color: '#212121',
   },
 });
