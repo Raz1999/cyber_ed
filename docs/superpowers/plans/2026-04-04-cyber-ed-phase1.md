@@ -6,7 +6,9 @@
 
 **Architecture:** Strategy Pattern simulation engine: each scenario type has an isolated renderer (`HotspotEngine`, `MultipleChoiceEngine`) registered in `SimulationRegistry`. `SimulationScreen` orchestrates attempt tracking, feedback, and navigation. Progress persisted locally via Zustand + persist middleware.
 
-**Tech Stack:** React Native (Expo SDK), TypeScript, NativeWind v2 (Tailwind CSS), Zustand ^4, React Navigation v6 (Stack), Heebo via `@expo-google-fonts/heebo`, Jest + jest-expo + @testing-library/react-native
+**Tech Stack:** React Native (Expo SDK), TypeScript, NativeWind v4 (Tailwind CSS), Zustand ^5, React Navigation v7 (Stack), Heebo via `@expo-google-fonts/heebo`, Jest + jest-expo + @testing-library/react-native
+
+> **Note on installed versions:** NativeWind v4.2.3 and Zustand v5.0.12 are installed (plan was written for v2/v4 but v4/v5 are backwards-compatible for all code in this plan). Zustand v5 uses `import { create } from 'zustand'` named export. NativeWind v4 uses metro.config.js + global.css setup (already configured).
 
 ---
 
