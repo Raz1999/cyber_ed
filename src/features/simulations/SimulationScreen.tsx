@@ -8,6 +8,7 @@ import { AnswerResult } from './engines/BaseSimulationProps';
 import FeedbackOverlay from '../../components/FeedbackOverlay';
 import ProgressBar from '../../components/ProgressBar';
 import { useGameState } from '../../hooks/useGameState';
+import { useGameStore } from '../../store/gameStore';
 import levelsData from '../../data/levels/levels.json';
 import { Colors, Typography, Spacing, TouchTarget } from '../../theme';
 
@@ -52,7 +53,7 @@ export default function SimulationScreen() {
     completeLevel(levelId, pointsEarned);
     setIsOverlayVisible(false);
     if (allLevelsComplete(TOTAL_LEVELS)) {
-      navigation.replace('Certificate', { totalPoints: cyberPoints + pointsEarned });
+      navigation.replace('Certificate', { totalPoints: useGameStore.getState().cyberPoints });
     } else {
       navigation.navigate('Home');
     }
