@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import './global.css';
 import React from 'react';
 import { I18nManager, View, Text, StyleSheet } from 'react-native';
