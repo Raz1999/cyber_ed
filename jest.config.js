@@ -31,6 +31,7 @@ module.exports = {
       moduleNameMapper: {
         // Prevent lazy-loaded Expo winter globals from being required outside Jest scope
         'expo/src/winter/ImportMetaRegistry': '<rootDir>/__mocks__/expo-import-meta-registry.js',
+        'expo/src/winter$': '<rootDir>/__mocks__/expo-winter.js',
       },
     },
   ],
