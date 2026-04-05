@@ -18,6 +18,25 @@ export function findHotspotHit(
   ) ?? null;
 }
 
+// Exported for unit testing — extracts normalized (0–1) tap coordinates
+// cross-platform: uses getBoundingClientRect on web, locationX/Y on native
+export function extractNormalizedTapCoords(
+  event: any,
+  layout: { width: number; height: number },
+  containerRef: React.RefObject<any>
+): { tapX: number; tapY: number } {
+  if (Platform.OS === 'web' && containerRef.current) {
+    const rect = (containerRef.current as any).getBoundingClientRect();
+    const rawX = event.nativeEvent.clientX - rect.left;
+    const rawY = event.nativeEvent.clientY - rect.top;
+    return { tapX: rawX / layout.width, tapY: rawY / layout.height };
+  }
+  return {
+    tapX: event.nativeEvent.locationX / layout.width,
+    tapY: event.nativeEvent.locationY / layout.height,
+  };
+}
+
 const prefersReducedMotion =
   Platform.OS === 'web' &&
   typeof window !== 'undefined' &&
@@ -31,6 +50,7 @@ export default function HotspotEngine({
   onAnswer,
 }: BaseSimulationProps) {
   const hs = scenario as HotspotScenario;
+  const containerRef = useRef<View>(null);
   const [layout, setLayout] = useState({ width: 1, height: 1 });
   const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
   const [revealCorrect, setRevealCorrect] = useState(false);
@@ -59,10 +79,8 @@ export default function HotspotEngine({
 
   const handlePress = (event: any) => {
     if (!isEnabled) return;
-    const { locationX, locationY } = event.nativeEvent;
-    const tapX = locationX / layout.width;
-    const tapY = locationY / layout.height;
-    triggerRipple(locationX, locationY);
+    const { tapX, tapY } = extractNormalizedTapCoords(event, layout, containerRef);
+    triggerRipple(tapX * layout.width, tapY * layout.height);
     const hit = findHotspotHit(hs.hotspots, tapX, tapY);
     if (!hit) {
       onAnswer({ isCorrect: false, feedbackText: hs.missedFeedback });
@@ -78,6 +96,7 @@ export default function HotspotEngine({
     <View style={styles.container}>
       <Text style={styles.task}>{hs.task}</Text>
       <View
+        ref={containerRef}
         style={styles.messageContainer}
         onLayout={e => setLayout(e.nativeEvent.layout)}
         accessible={true}

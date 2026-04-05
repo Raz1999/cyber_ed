@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import HotspotEngine, { findHotspotHit } from '../src/features/simulations/engines/HotspotEngine';
+import HotspotEngine, { findHotspotHit, extractNormalizedTapCoords } from '../src/features/simulations/engines/HotspotEngine';
 import { HotspotScenario, Hotspot } from '../src/types/scenario';
 
 const hotspots: Hotspot[] = [
@@ -43,6 +43,26 @@ describe('findHotspotHit', () => {
   it('returns hotspot when tap is on boundary (inclusive)', () => {
     const hit = findHotspotHit(hotspots, 0.0, 0.6);
     expect(hit).not.toBeNull();
+  });
+});
+
+describe('extractNormalizedTapCoords — native path', () => {
+  it('normalizes locationX/Y against layout dimensions', () => {
+    const event = { nativeEvent: { locationX: 50, locationY: 75 } };
+    const layout = { width: 200, height: 300 };
+    const ref = { current: null }; // native path: ref not used
+    const result = extractNormalizedTapCoords(event, layout, ref);
+    expect(result.tapX).toBeCloseTo(0.25);
+    expect(result.tapY).toBeCloseTo(0.25);
+  });
+
+  it('returns 0 for a tap at the top-left corner', () => {
+    const event = { nativeEvent: { locationX: 0, locationY: 0 } };
+    const layout = { width: 100, height: 100 };
+    const ref = { current: null };
+    const result = extractNormalizedTapCoords(event, layout, ref);
+    expect(result.tapX).toBe(0);
+    expect(result.tapY).toBe(0);
   });
 });
 
