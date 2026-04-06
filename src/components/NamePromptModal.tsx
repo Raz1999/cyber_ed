@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, Pressable, Modal, StyleSheet } from 'react-native';
 import { useGameStore } from '../store/gameStore';
 import { Colors, Typography, Spacing, Radius, TouchTarget } from '../theme';
@@ -13,6 +13,15 @@ export default function NamePromptModal() {
   const playerName = useGameStore(s => s.playerName);
   const setPlayerName = useGameStore(s => s.setPlayerName);
   const [input, setInput] = useState('');
+  const inputRef = useRef<TextInput>(null);
+
+  useEffect(() => {
+    if (playerName === null) {
+      // Wait for Modal animation before requesting focus
+      const t = setTimeout(() => inputRef.current?.focus(), 300);
+      return () => clearTimeout(t);
+    }
+  }, [playerName]);
 
   const handleSave = () => {
     const name = input.trim() || pickRandom(RANDOM_NAMES);
@@ -31,6 +40,7 @@ export default function NamePromptModal() {
           <Text style={styles.title}>ברוך הבא!</Text>
           <Text style={styles.subtitle}>איך לקרוא לך?</Text>
           <TextInput
+            ref={inputRef}
             style={styles.input}
             value={input}
             onChangeText={setInput}
@@ -38,7 +48,6 @@ export default function NamePromptModal() {
             placeholderTextColor={Colors.locked}
             textAlign="right"
             maxLength={20}
-            autoFocus
           />
           <Pressable style={styles.randomButton} onPress={handleRandom}>
             <Text style={styles.randomText}>🎲 בחר שם אקראי</Text>
