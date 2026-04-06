@@ -17,6 +17,6 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
 }
 
 const styles = StyleSheet.create({
-  track: { height: 8, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 4, marginHorizontal: 16, marginBottom: 4, overflow: 'hidden' },
+  track: { height: 8, backgroundColor: Colors.cardBorder, borderRadius: 4, marginHorizontal: 16, marginBottom: 4, overflow: 'hidden' },
   fill: { height: 8, backgroundColor: Colors.secondary, borderRadius: 4 },
 });

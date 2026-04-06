@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Colors } from '../theme';
 import HomeScreen from '../screens/HomeScreen';
 import SimulationScreen from '../features/simulations/SimulationScreen';
 import CertificateScreen from '../screens/CertificateScreen';
@@ -17,7 +18,7 @@ export default function AppNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        cardStyle: { backgroundColor: '#FAF9F6' },
+        cardStyle: { backgroundColor: Colors.background },
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />
