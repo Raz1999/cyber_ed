@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigation/AppNavigator';
 import LevelCard from '../components/LevelCard';
+import NamePromptModal from '../components/NamePromptModal';
 import { useGameState } from '../hooks/useGameState';
 import levelsData from '../data/levels/levels.json';
 import { Level } from '../types/scenario';
@@ -13,13 +14,13 @@ type HomeNavProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeNavProp>();
-  const { isLevelCompleted, isLevelUnlocked, cyberPoints } = useGameState();
+  const { isLevelCompleted, isLevelUnlocked, cyberPoints, playerName } = useGameState();
   const levels = levelsData.levels as unknown as Level[];
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.appTitle}>מגן דיגיטלי</Text>
+        <Text style={styles.appTitle}>{playerName ? `שלום, ${playerName}! 👋` : 'מגן דיגיטלי 🛡️'}</Text>
         <View style={styles.pointsBadge}>
           <Text style={styles.pointsText}>{cyberPoints} נק׳</Text>
         </View>
@@ -38,6 +39,7 @@ export default function HomeScreen() {
           ))}
         </ScrollView>
       </View>
+      <NamePromptModal />
     </SafeAreaView>
   );
 }

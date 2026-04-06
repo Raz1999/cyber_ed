@@ -4,8 +4,10 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 interface GameState {
   cyberPoints: number;
   completedLevelIds: number[];
+  playerName: string | null;
   completeLevel: (levelId: number, pointsEarned: number) => void;
   resetProgress: () => void;
+  setPlayerName: (name: string) => void;
 }
 
 export const useGameStore = create<GameState>()(
@@ -13,6 +15,7 @@ export const useGameStore = create<GameState>()(
     (set, get) => ({
       cyberPoints: 0,
       completedLevelIds: [],
+      playerName: null,
 
       completeLevel: (levelId, pointsEarned) => {
         if (get().completedLevelIds.includes(levelId)) return;
@@ -22,7 +25,10 @@ export const useGameStore = create<GameState>()(
         }));
       },
 
+      // resetProgress does NOT reset playerName — intentional
       resetProgress: () => set({ cyberPoints: 0, completedLevelIds: [] }),
+
+      setPlayerName: (name) => set({ playerName: name }),
     }),
     {
       name: 'cyber-ed-progress',

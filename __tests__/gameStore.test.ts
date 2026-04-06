@@ -13,7 +13,7 @@ Object.defineProperty(global, 'localStorage', { value: localStorageMock });
 import { useGameStore } from '../src/store/gameStore';
 
 beforeEach(() => {
-  useGameStore.setState({ cyberPoints: 0, completedLevelIds: [] });
+  useGameStore.setState({ cyberPoints: 0, completedLevelIds: [], playerName: null });
 });
 
 describe('completeLevel', () => {
@@ -40,6 +40,26 @@ describe('resetProgress', () => {
     useGameStore.getState().completeLevel(1, 100);
     useGameStore.getState().completeLevel(2, 100);
     useGameStore.getState().resetProgress();
+    expect(useGameStore.getState().cyberPoints).toBe(0);
+    expect(useGameStore.getState().completedLevelIds).toHaveLength(0);
+  });
+});
+
+describe('playerName', () => {
+  it('defaults to null', () => {
+    expect(useGameStore.getState().playerName).toBeNull();
+  });
+
+  it('setPlayerName stores the name', () => {
+    useGameStore.getState().setPlayerName('רז');
+    expect(useGameStore.getState().playerName).toBe('רז');
+  });
+
+  it('resetProgress does NOT reset playerName', () => {
+    useGameStore.getState().setPlayerName('רז');
+    useGameStore.getState().completeLevel(1, 100);
+    useGameStore.getState().resetProgress();
+    expect(useGameStore.getState().playerName).toBe('רז');
     expect(useGameStore.getState().cyberPoints).toBe(0);
     expect(useGameStore.getState().completedLevelIds).toHaveLength(0);
   });

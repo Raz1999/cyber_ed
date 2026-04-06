@@ -1,7 +1,7 @@
 import { useGameStore } from '../store/gameStore';
 
 export const useGameState = () => {
-  const { cyberPoints, completedLevelIds, completeLevel, resetProgress } = useGameStore();
+  const { cyberPoints, completedLevelIds, completeLevel, resetProgress, playerName, setPlayerName } = useGameStore();
 
   const isLevelCompleted = (id: number): boolean =>
     completedLevelIds.includes(id);
@@ -19,5 +19,7 @@ export const useGameState = () => {
     allLevelsComplete,
     completeLevel,
     resetProgress,
+    playerName,
+    setPlayerName,
   };
 };
