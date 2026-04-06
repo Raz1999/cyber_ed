@@ -12,7 +12,7 @@ import { useGameStore } from '../../store/gameStore';
 import levelsData from '../../data/levels/levels.json';
 import { Colors, Typography, Spacing, TouchTarget } from '../../theme';
 
-const TOTAL_LEVELS = 5;
+const TOTAL_LEVELS = 15;
 const FIRST_TRY_BONUS = 50;
 
 type SimulationRouteProp = RouteProp<RootStackParamList, 'Simulation'>;
