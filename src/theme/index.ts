@@ -1,13 +1,16 @@
 // src/theme/index.ts
 
 export const Colors = {
-  primary: '#2E7D32',       // Warm Green — primary brand, success states
-  success: '#2E7D32',       // Intentionally same as primary; update both if changed
-  accent: '#F57C00',        // Soft Orange — warnings, incorrect feedback (not red)
-  background: '#FAF9F6',    // Cream — reduces eye strain
-  text: '#212121',          // Dark Charcoal — WCAG AA on background
+  primary: '#6A1B9A',       // Royal Purple — brand, buttons, active borders
+  secondary: '#00897B',     // Teal — progress, completed states, success
+  headerBg: '#3A0066',      // Dark Purple — top bars on all screens
+  background: '#F5F0FF',    // Lavender — page background
   surface: '#FFFFFF',
-  cardBorder: '#E0E0E0',
+  text: '#3A0066',          // Dark Purple — primary text
+  accent: '#F57C00',        // Orange — incorrect feedback (unchanged)
+  success: '#00897B',       // Teal — correct answers, completed levels
+  points: '#FFB300',        // Gold — points badge
+  cardBorder: '#E8E0F0',    // Light purple border
   locked: '#9E9E9E',
   disabled: '#BDBDBD',
 };
