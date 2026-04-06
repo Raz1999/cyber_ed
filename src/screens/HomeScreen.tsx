@@ -25,17 +25,19 @@ export default function HomeScreen() {
         </View>
       </View>
       <Text style={styles.subtitle}>למד להגן על עצמך מהונאות ברשת</Text>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        {levels.map(level => (
-          <LevelCard
-            key={level.levelId}
-            level={level}
-            isCompleted={isLevelCompleted(level.levelId)}
-            isUnlocked={isLevelUnlocked(level.levelId)}
-            onPress={() => navigation.navigate('Simulation', { levelId: level.levelId })}
-          />
-        ))}
-      </ScrollView>
+      <View style={styles.scrollWrapper}>
+        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          {levels.map(level => (
+            <LevelCard
+              key={level.levelId}
+              level={level}
+              isCompleted={isLevelCompleted(level.levelId)}
+              isUnlocked={isLevelUnlocked(level.levelId)}
+              onPress={() => navigation.navigate('Simulation', { levelId: level.levelId })}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -47,5 +49,6 @@ const styles = StyleSheet.create({
   pointsBadge: { backgroundColor: Colors.primary, borderRadius: 20, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
   pointsText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.bodySize, color: Colors.surface },
   subtitle: { fontFamily: Typography.fontFamily, fontSize: Typography.bodySize, color: Colors.locked, textAlign: 'right', paddingHorizontal: Spacing.lg, paddingBottom: Spacing.md },
+  scrollWrapper: { flex: 1, overflow: 'hidden' },
   scrollContent: { paddingTop: Spacing.sm, paddingBottom: Spacing.xl },
 });
