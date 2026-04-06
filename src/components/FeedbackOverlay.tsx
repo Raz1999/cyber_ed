@@ -58,8 +58,8 @@ export default function FeedbackOverlay({
 }
 
 const styles = StyleSheet.create({
-  backdrop: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(0,0,0,0.4)' },
-  sheet: { backgroundColor: Colors.background, borderTopLeftRadius: Radius.card, borderTopRightRadius: Radius.card, overflow: 'hidden' },
+  backdrop: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(58,0,102,0.5)' },
+  sheet: { backgroundColor: '#FAF5FF', borderTopLeftRadius: Radius.card, borderTopRightRadius: Radius.card, overflow: 'hidden' },
   header: { paddingVertical: Spacing.md, paddingHorizontal: Spacing.lg, alignItems: 'center' },
   headerText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.titleSize, color: Colors.surface },
   content: { padding: Spacing.lg, gap: Spacing.md },

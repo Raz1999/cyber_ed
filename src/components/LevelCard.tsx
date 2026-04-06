@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Level } from '../types/scenario';
 import { Colors, Typography, Spacing, Radius, TouchTarget } from '../theme';
 
@@ -9,6 +10,9 @@ interface LevelCardProps {
   isUnlocked: boolean;
   onPress: () => void;
 }
+
+const GRADIENT_ACTIVE: [string, string] = [Colors.primary, Colors.secondary];
+const GRADIENT_COMPLETED: [string, string] = [Colors.secondary, Colors.secondary];
 
 export default function LevelCard({ level, isCompleted, isUnlocked, onPress }: LevelCardProps) {
   const buttonLabel = isCompleted ? 'שחק שוב' : isUnlocked ? 'התחל' : '🔒 נעול';
@@ -40,17 +44,22 @@ export default function LevelCard({ level, isCompleted, isUnlocked, onPress }: L
           <Text style={styles.levelNumber}>{level.levelId}</Text>
         </View>
       </View>
-      <Pressable
-        style={[styles.button, !isUnlocked && styles.buttonDisabled]}
-        onPress={isUnlocked ? onPress : undefined}
-        disabled={!isUnlocked}
-        accessibilityRole="button"
-        accessibilityLabel={buttonLabel}
-      >
-        <Text style={[styles.buttonText, !isUnlocked && styles.buttonTextDisabled]}>
-          {buttonLabel}
-        </Text>
-      </Pressable>
+      {isUnlocked ? (
+        <View style={styles.buttonWrapper}>
+          <LinearGradient
+            colors={isCompleted ? GRADIENT_COMPLETED : GRADIENT_ACTIVE}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>{buttonLabel}</Text>
+          </LinearGradient>
+        </View>
+      ) : (
+        <View style={[styles.button, styles.buttonDisabled]}>
+          <Text style={[styles.buttonText, styles.buttonTextDisabled]}>{buttonLabel}</Text>
+        </View>
+      )}
     </Pressable>
   );
 }
@@ -63,14 +72,14 @@ const styles = StyleSheet.create({
     marginHorizontal: Spacing.md,
     marginBottom: Spacing.md,
     elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.08,
+    shadowColor: Colors.primary,
+    shadowOpacity: 0.1,
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 2 },
     borderWidth: 2,
     borderColor: 'transparent',
   },
-  cardCompleted: { borderColor: Colors.success },
+  cardCompleted: { borderColor: Colors.secondary },
   cardLocked: { opacity: 0.6, backgroundColor: '#F5F5F5' },
   row: { flexDirection: 'row', gap: Spacing.md, marginBottom: Spacing.md },
   info: { flex: 1 },
@@ -78,11 +87,12 @@ const styles = StyleSheet.create({
   description: { fontFamily: Typography.fontFamily, fontSize: Typography.captionSize, color: Colors.locked, textAlign: 'right', lineHeight: 20 },
   lockedText: { color: Colors.locked },
   badgeContainer: { alignItems: 'center', gap: Spacing.xs },
-  completedBadge: { backgroundColor: '#E8F5E9', borderRadius: Radius.badge, paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
-  completedBadgeText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.captionSize, color: Colors.success },
+  completedBadge: { backgroundColor: '#E0F7F4', borderRadius: Radius.badge, paddingHorizontal: Spacing.sm, paddingVertical: Spacing.xs },
+  completedBadgeText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.captionSize, color: Colors.secondary },
   lockIcon: { fontSize: 20 },
   levelNumber: { fontFamily: Typography.fontFamilyBold, fontSize: 28, color: Colors.primary },
-  button: { backgroundColor: Colors.primary, borderRadius: Radius.button, minHeight: TouchTarget.min, alignItems: 'center', justifyContent: 'center' },
+  buttonWrapper: { borderRadius: Radius.button, overflow: 'hidden', minHeight: TouchTarget.min },
+  button: { minHeight: TouchTarget.min, alignItems: 'center', justifyContent: 'center', paddingHorizontal: Spacing.md },
   buttonDisabled: { backgroundColor: Colors.disabled },
   buttonText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.bodySize, color: Colors.surface },
   buttonTextDisabled: { color: Colors.surface },

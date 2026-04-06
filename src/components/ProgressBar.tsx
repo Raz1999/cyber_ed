@@ -1,32 +1,22 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors, Spacing, Radius } from '../theme';
+import { Colors } from '../theme';
 
 interface ProgressBarProps {
-  current: number;   // 0–total
+  current: number;
   total: number;
 }
 
 export default function ProgressBar({ current, total }: ProgressBarProps) {
-  const progress = total > 0 ? Math.min(current / total, 1) : 0;
+  const pct = Math.min(Math.max(current / total, 0), 1);
   return (
     <View style={styles.track}>
-      <View style={[styles.fill, { width: `${progress * 100}%` as any }]} />
+      <View style={[styles.fill, { width: `${pct * 100}%` as any }]} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  track: {
-    height: 8,
-    backgroundColor: '#E0E0E0',
-    borderRadius: Radius.sm,
-    overflow: 'hidden',
-    marginHorizontal: Spacing.md,
-  },
-  fill: {
-    height: '100%',
-    backgroundColor: Colors.primary,
-    borderRadius: Radius.sm,
-  },
+  track: { height: 8, backgroundColor: 'rgba(255,255,255,0.2)', borderRadius: 4, marginHorizontal: 16, marginBottom: 4, overflow: 'hidden' },
+  fill: { height: 8, backgroundColor: Colors.secondary, borderRadius: 4 },
 });

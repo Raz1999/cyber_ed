@@ -44,10 +44,17 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.background },
-  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: Spacing.lg, paddingVertical: Spacing.md },
-  appTitle: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.titleSize, color: Colors.text },
-  pointsBadge: { backgroundColor: Colors.primary, borderRadius: 20, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
-  pointsText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.bodySize, color: Colors.surface },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    backgroundColor: Colors.headerBg,
+  },
+  appTitle: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.titleSize, color: '#FFFFFF' },
+  pointsBadge: { backgroundColor: Colors.points, borderRadius: 20, paddingHorizontal: Spacing.md, paddingVertical: Spacing.xs },
+  pointsText: { fontFamily: Typography.fontFamilyBold, fontSize: Typography.bodySize, color: Colors.headerBg },
   subtitle: { fontFamily: Typography.fontFamily, fontSize: Typography.bodySize, color: Colors.locked, textAlign: 'right', paddingHorizontal: Spacing.lg, paddingBottom: Spacing.md },
   scrollWrapper: { flex: 1, overflow: 'hidden' },
   scrollContent: { paddingTop: Spacing.sm, paddingBottom: Spacing.xl },
