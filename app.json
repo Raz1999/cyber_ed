@@ -32,6 +32,9 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "experiments": {
+      "baseUrl": "/cyber_ed"
+    }
   }
 }
